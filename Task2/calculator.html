@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(83, 91, 195);
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: rgb(42, 126, 126);
+            height: 500px;
+            width: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .calcul
+        {
+            height: 420px;
+            width:380px;
+            background-color: aquamarine;
+            border-radius: 10px;
+            display:inline;
+            
+            align-items:center;
+            justify-content:center;
+
+        }
+
+        .result {
+            margin: 20px;
+            padding: 10px 8px 0px 7px;
+            height: 11%;
+            width: 325px;
+            border-radius: 10px;
+            background-color: aquamarine;
+            position: relative; 
+        }
+
+        #DisResult {
+            position: absolute; 
+            bottom: 5px; 
+            right: 10px; 
+            font-size: 17px; 
+            background-color: rgb(153, 217, 230);
+        }
+        input[type="text"]
+        {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgb(153, 217, 230);
+            border:0;
+            padding-top: 0px;
+            padding-left: 7px;
+            font-size: 20px;
+            
+        }
+        .keys
+        {
+            display: flex;
+            gap:11px;
+            background-color: aquamarine;
+            padding: 3px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        .keys1
+        {
+            display: flex;
+            gap:11px;
+            background-color: aquamarine;
+            padding: 7px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        #b1
+        {
+            border:0;
+            background-color: rgb(117, 181, 221);
+            height: 40px;
+            width: 57px;
+            border-radius: 10px;
+            font-size: large;
+            color: rgb(77, 141, 220);
+
+        }
+        #b2
+        {
+            border:0;
+            background-color: rgb(153, 217, 230);
+            height: 48px;
+            width: 57px;
+            border-radius: 10px;
+            font-size:x-large;
+            color: rgb(0, 0, 0);
+
+        }
+        #b3
+        {
+            border:0;
+            background-color: rgb(117, 181, 221);
+            height: 48px;
+            width: 57px;
+            border-radius: 10px;
+            font-size:x-large;
+            color: rgb(77, 141, 220);
+
+        }
+        #b4
+        {
+            border:0;
+            background-color: rgb(63, 137, 183);
+            height: 48px;
+            width: 120px;
+            border-radius: 10px;
+            font-size:large;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+
+        }
+       
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="calcul">
+            <div class="result">
+                <input type="text" id="result" readonly>
+                <div id="DisResult"></div>
+            </div>
+            <div class="keys">
+                <button id="b1" type="button" onclick="keyAppend('(')">(</button>
+                <button id="b1"type="button" onclick="keyAppend(')')">)</button>
+                <button id="b1"type="button" onclick="keyAppend('ans')">ans</button>
+                <button id="b1"type="button" onclick="delChar()">del</button>
+                <button id="b1"type="button" onclick="clrRes()">clear</button>
+            </div>
+            <div class="keys1">
+                <button id="b2" type="button" onclick="keyAppend('7')">7</button>
+                <button id="b2" type="button" onclick="keyAppend('8')">8</button>
+                <button id="b2" type="button" onclick="keyAppend('9')">9</button>
+                <button id="b3" type="button" onclick="keyAppend('%')">%</button>
+                <button id="b3" type="button" onclick="keyAppend('√')">√</button>
+            </div>
+            <div class="keys1">
+                <button id="b2" type="button" onclick="keyAppend('4')">4</button>
+                <button id="b2" type="button" onclick="keyAppend('5')">5</button>
+                <button id="b2" type="button" onclick="keyAppend('6')">6</button>
+                <button id="b3" type="button" onclick="keyAppend('*')">x</button>
+                <button id="b3" type="button" onclick="keyAppend('/')">÷</button>
+            </div>
+            <div class="keys1">
+                <button id="b2" type="button" onclick="keyAppend('1')">1</button>
+                <button id="b2" type="button" onclick="keyAppend('2')">2</button>
+                <button id="b2" type="button" onclick="keyAppend('3')">3</button>
+                <button id="b3" type="button" onclick="keyAppend('+')">+</button>
+                <button id="b3" type="button" onclick="keyAppend('-')">-</button>
+            </div>
+            <div class="keys1">
+                <button id="b3" type="button" onclick="keyAppend('.')">.</button>
+                <button id="b2" type="button" onclick="keyAppend('0')">0</button>
+                <button id="b3" type="button" onclick="sToggle()">±</button>
+                <button id="b4" type="button" onclick="EvalFunc()">ENTER</button>
+                
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var Res=document.getElementById('result');
+        function keyAppend(char)
+        {
+            if (char === '√') {
+                Res.value += '√(';
+            } else {
+                Res.value += char;
+            }
+        }
+        function delChar()
+        {
+            Res.value=Res.value.slice(0,-1);
+
+        }
+        function clrRes()
+        {
+            Res.value='';
+            document.getElementById('DisResult').innerText = '';
+
+
+        }
+        function sToggle()
+        {
+            var Ress=Res.value;
+            if(Ress !== '' && Ress !== '0')
+            {
+                if(Ress[0]==='-')
+                {
+                    Res.value=Ress.slice(1);
+
+                }
+                else{
+                    Res.value='-'+result;
+                }
+            }
+        }
+        function EvalFunc()
+        {
+            var Exp=Res.value;
+            if (Exp.includes('√'))
+            {
+                var first=Exp.split('√');
+                var signn=parseFloat(first[1]);
+                if(isNaN(signn))
+                {
+                    Res.value='Error';
+                    return;
+                }
+                var res=Math.sqrt(signn);
+                Exp=first[0]+res.toString();
+
+            }
+            try{
+                var res=eval(Exp);
+                document.getElementById('DisResult').innerText = res;
+                //Res.value=res;
+
+            }
+            catch(error)
+            {
+                if (error instanceof SyntaxError && error.message.includes('division by zero')) {
+                    document.getElementById('DisResult').innerText ='Error';
+                } else {
+                    document.getElementById('DisResult').innerText = 'Error: Invalid Expression';
+                }
+            }
+        }
+        document.getElementById('b4').addEventListener('click', evaluateExpression);
+
+    </script>
+</body>
+</html>
